@@ -29,12 +29,11 @@ module Veewee
           #if the disk was not attached when the machine was destroyed we also need to delete the disk
           pattern= File::SEPARATOR+name+"."
           #+definition.disk_format.downcase
-          found=false
           command="#{@vboxcmd} list hdds -l"
           hdds=shell_exec("#{command}",{:mute => true}).stdout.split(/\n\n/)
 
           hdds.each do |hdd_text|
-            location=hdd_text.split(/\n/).grep(/^Location/).first.split(':')[1].strip
+            location = hdd_text.split(/\n/).grep(/^Location/).first.split(':')[1].strip.shellescape
             if location.match(/#{pattern}/)
 
               if File.exists?(location)
