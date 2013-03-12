@@ -6,10 +6,6 @@ module Veewee
       module BoxCommand
         # This function 'exports' the box based on the definition
         def export_ova(options)
-          debug="--X:logToConsole=true --X:logLevel=\"verbose\""
-          debug=""
-          flags="--compress=9"
-
           if File.exists?("#{name}.ova")
             if options["force"]
               env.logger.debug("#{name}.ova exists, but --force was provided")
@@ -24,8 +20,19 @@ module Veewee
           # before exporting the system needs to be shut down
           ensure_vm_stopped(options)
 
+          command = ["#{File.dirname(vmrun_cmd).shellescape}#{"/VMware OVF Tool/ovftool".shellescape}"]
+          if options.delete('debug')
+            command << "--X:logToConsole=true --X:logLevel=\"verbose\""
+          end
+
+          unless options.delete('no-compress')
+            command << '--compress=9'
+          end
+          command << vmx_file_path.shellescape
+          command << "#{name}.ova"
+
           # otherwise the debug log will show - The specified virtual disk needs repair
-          shell_exec("#{File.dirname(vmrun_cmd).shellescape}#{"/VMware OVF Tool/ovftool".shellescape} #{debug} #{flags} #{vmx_file_path.shellescape} #{name}.ova")
+          shell_exec(command.join(' '))
         end
 
         def export_vagrant(options={})
