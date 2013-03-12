@@ -34,7 +34,7 @@ module Veewee
 
         def initialize(name,env)
 
-          require 'fission'
+          require 'fission_init'
           super(name,env)
         end
 

@@ -8,7 +8,7 @@ module Veewee
         #include ::Veewee::Provider::Vmfusion::ProviderCommand
 
         def check_requirements
-          require 'fission'
+          require 'fission_init'
 
           if File.exists?("/Library/Application Support/VMware Fusion/vmrun")
             ::Fission.config.attributes["vmrun_bin"] = "/Library/Application Support/VMware Fusion/vmrun"
