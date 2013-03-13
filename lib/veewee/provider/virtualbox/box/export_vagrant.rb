@@ -6,15 +6,6 @@ module Veewee
 
         #    Shellutil.execute("vagrant package --base #{vmname} --include /tmp/Vagrantfile --output /tmp/#{vmname}.box", {:progress => "on"})
 
-        def export_ova(options)
-          box_path = export_vagrant(options)
-
-          box = Pathname(box_path)
-          ova_path = box.parent.join("#{box.basename('.box')}.ova")
-
-          FileUtils.mv(box_path, ova_path)
-        end
-
         def export_vagrant(options)
 
           # Check if box already exists
@@ -89,8 +80,6 @@ module Veewee
           ui.info "vagrant init '#{name}'"
           ui.info "vagrant up"
           ui.info "vagrant ssh"
-
-          box_path
         end
 
       end #Module
