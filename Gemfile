@@ -5,8 +5,8 @@
 
 source "http://rubygems.org"
 
-#gem "veewee", :path => "."
-#gem "fission", :path => '/Users/patrick/dev/fission'
+gem 'fog', :git => 'https://github.com/calavera/fog.git'
+gem 'vagrant', :git => 'https://github.com/calavera/vagrant.git'
 
 group :kvm do
   gem "ruby-libvirt"
@@ -14,8 +14,7 @@ end
 
 group :test do
   gem "rake"
-  gem "em-winrm", :git => 'git://github.com/hh/em-winrm.git', :ref => '31745601d3'
-  #gem "chef"
-  #gem "knife-windows"
+  gem "em-winrm", :git => 'https://github.com/hh/em-winrm.git', :ref => '31745601d3'
 end
+
 gemspec

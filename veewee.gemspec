@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   # Currently locked to 2.2.0
   # if specifying to >= 2.2.0 it would use 2.3 and bundler would go in a resolver loop
   # DEBUG_RESOLVER=1 bundle install
-  s.add_dependency "net-ssh", "~> 2.2.0"
+  s.add_dependency "net-ssh", ">= 2.2.0"
 
   s.add_dependency "popen4", "~> 0.1.2"
   s.add_dependency "thor", "~> 0.15"
@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
   s.add_dependency "cucumber", ">=1.0.0"
   s.add_dependency "ansi", "~> 1.3.0"
   s.add_dependency "ruby-vnc", "~> 1.0.0"
-  s.add_dependency "fog", "~> 1.8"
+  s.add_dependency "fog", ">= 1.8"
   s.add_dependency "childprocess"
   s.add_dependency "grit"
   s.add_dependency "fission", "0.4.0"
