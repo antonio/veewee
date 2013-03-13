@@ -67,9 +67,12 @@ module Veewee
           end
 
           ui.info "Executing vagrant voodoo:"
+          include_opts = options.fetch('include', [])
+          vagrant_files = options.fetch('vagrantfile', [])
+
           export_command="vagrant package --base '#{name}' --output '#{box_path}'"
-          export_command += " --include #{options["include"].join(',')}" unless options["include"].empty?
-          export_command += " --vagrantfile #{options["vagrantfile"].join(' ')}" unless options["vagrantfile"].empty?
+          export_command += " --include #{options["include"].join(',')}" unless include_opts.empty?
+          export_command += " --vagrantfile #{options["vagrantfile"].join(' ')}" unless vagrant_files.empty?
           ui.info "#{export_command}"
           shell_exec("#{export_command}") #hmm, needs to get the gem_home set?
           ui.info ""
