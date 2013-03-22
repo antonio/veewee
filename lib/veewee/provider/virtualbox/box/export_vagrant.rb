@@ -3,6 +3,7 @@ module Veewee
   module Provider
     module Virtualbox
       module BoxCommand
+        require 'vagrant'
 
         #    Shellutil.execute("vagrant package --base #{vmname} --include /tmp/Vagrantfile --output /tmp/#{vmname}.box", {:progress => "on"})
 
@@ -61,11 +62,13 @@ module Veewee
           include_opts = options.fetch('include', [])
           vagrant_files = options.fetch('vagrantfile', [])
 
-          export_command="vagrant package --base '#{name}' --output '#{box_path}'"
-          export_command += " --include #{options["include"].join(',')}" unless include_opts.empty?
-          export_command += " --vagrantfile #{options["vagrantfile"].join(' ')}" unless vagrant_files.empty?
-          ui.info "#{export_command}"
-          shell_exec("#{export_command}") #hmm, needs to get the gem_home set?
+          vagrant_options = ["--base '#{name}' --output '#{box_path}"]
+          vagrant_options << "--include #{options["include"].join(',')}" unless include_opts.empty?
+          vagrant_options << "--vagrantfile #{options["vagrantfile"].join(' ')}" unless vagrant_files.empty?
+
+          vagrant = Vagrant::Environment.new(:ui_class => Vagrant::UI::Basic)
+          vagrant.cli("package", vagrant_options.join(" "))
+
           ui.info ""
 
           #add_ssh_nat_mapping back!!!!
