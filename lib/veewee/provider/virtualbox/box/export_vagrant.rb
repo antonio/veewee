@@ -61,7 +61,7 @@ module Veewee
           include_opts = options.fetch('include', [])
           vagrant_files = options.fetch('vagrantfile', [])
 
-          vagrant_options = ["--base '#{name}' --output '#{box_path}"]
+          vagrant_options = ["--base '#{name}' --output '#{box_path}'"]
           vagrant_options << "--include #{options["include"].join(',')}" unless include_opts.empty?
           vagrant_options << "--vagrantfile #{options["vagrantfile"].join(' ')}" unless vagrant_files.empty?
 
