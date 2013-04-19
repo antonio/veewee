@@ -65,7 +65,7 @@ module Veewee
           vagrant_options << "--include #{options["include"].join(',')}" unless include_opts.empty?
           vagrant_options << "--vagrantfile #{options["vagrantfile"].join(' ')}" unless vagrant_files.empty?
 
-          ui.info "Executing vagrant voodoo: vagrant package #{vagrant_options.join(" ")}"
+          puts "Executing vagrant voodoo: vagrant package #{vagrant_options.join(" ")}"
           vagrant = Vagrant::Environment.new(:ui_class => Vagrant::UI::Basic)
           vagrant.cli("package", vagrant_options.join(" "))
 
