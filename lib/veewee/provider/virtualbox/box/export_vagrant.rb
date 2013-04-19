@@ -58,16 +58,11 @@ module Veewee
             raise Veewee::Error, "box #{name}.box already exists"
           end
 
-          include_opts = options.fetch('include', [])
-          vagrant_files = options.fetch('vagrantfile', [])
-
-          vagrant_options = ["--base '#{name}' --output '#{box_path}'"]
-          vagrant_options << "--include #{options["include"].join(',')}" unless include_opts.empty?
-          vagrant_options << "--vagrantfile #{options["vagrantfile"].join(' ')}" unless vagrant_files.empty?
+          vagrant_options = ["--base", "#{name}", "--output", "#{box_path}"]
 
           puts "Executing vagrant voodoo: vagrant package #{vagrant_options.join(" ")}"
           vagrant = Vagrant::Environment.new(:ui_class => Vagrant::UI::Basic)
-          vagrant.cli("package", vagrant_options.join(" "))
+          vagrant.cli("package", *vagrant_options)
 
           ui.info ""
 
