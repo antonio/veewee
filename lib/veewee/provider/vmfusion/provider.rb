@@ -38,7 +38,7 @@ module Veewee
             end
           rescue Exception => e
             ui.warn "Error checking version #{e}, 'assuming' 5.1"
-            version = 5.1
+            version = "5.1"
           end
 
           return version
