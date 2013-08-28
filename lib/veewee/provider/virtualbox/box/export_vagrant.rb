@@ -26,22 +26,34 @@ module Veewee
             end
           end
 
-
           # We need to shutdown first
-          if self.running?
-            ui.info "Vagrant requires the box to be shutdown, before it can export"
-            ui.info "Sudo also needs to work for user #{definition.ssh_user}"
-            ui.info "Performing a clean shutdown now."
+          # I suspect there is a race here, so time it out.
+          retrycount = 0
+          begin
+            Timeout::timeout(5) do
+              if self.running?
+                ui.info "Vagrant requires the box to be shutdown, before it can export"
+                ui.info "Sudo also needs to work for user #{definition.ssh_user}"
+                ui.info "Performing a clean shutdown now."
 
-            self.halt
+                self.halt
 
-            #Wait for state poweroff
-            while (self.running?) do
-              ui.info ".",{:new_line => false}
-              sleep 1
+                #Wait for state poweroff
+                while (self.running?) do
+                  ui.info ".",{:new_line => false}
+                  sleep 1
+                end
+                ui.info ""
+                ui.info "Machine #{name} is powered off cleanly"
+              end
             end
-            ui.info ""
-            ui.info "Machine #{name} is powered off cleanly"
+          rescue Timeout::Error
+            if retrycount > 5
+              ui.error "Timeout trying to halt the machine."
+              raise Veewee::Error, "Error stopping VM"
+            end
+            retrycount += 1
+            retry
           end
 
           #Vagrant requires a relative path for output of boxes
