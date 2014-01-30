@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.add_dependency "progressbar"
   s.add_dependency "i18n"
   s.add_dependency "cucumber", ">=1.0.0"
-  s.add_dependency "ansi", "~> 1.3.0"
+  s.add_dependency "ansi", "~> 1.4.0"
   s.add_dependency "ruby-vnc", "~> 1.0.0"
   s.add_dependency "fog", ">= 1.8"
   s.add_dependency "childprocess"
