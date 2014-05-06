@@ -39,7 +39,6 @@ Gem::Specification.new do |s|
   # See : https://github.com/jedi4ever/veewee/issues/6
   #s.add_dependency "CFPropertyList", ">= 2.1.1"
 #  s.add_dependency "libvirt"
-  s.add_dependency "rspec", "~> 2.5"
 
   s.add_development_dependency "bundler", ">= 1.0.0"
   #s.add_development_dependency('ruby-libvirt','~>0.4.0')

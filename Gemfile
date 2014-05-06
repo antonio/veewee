@@ -14,6 +14,7 @@ end
 
 group :test do
   gem "rake"
+  gem "rspec", "~> 2.5"
   gem "em-winrm", :git => 'https://github.com/hh/em-winrm.git', :ref => '31745601d3'
 end
 
